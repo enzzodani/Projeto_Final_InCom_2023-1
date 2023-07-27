@@ -28,9 +28,8 @@ int main()
 				printf("F - Cadastro de formas de pagamento\n");
 				printf("V - Processo de vendas\n");
 				printf("S - Sair\n");
-				// TODO: corrigir bug do lixo na input stream
 				scanf("%c", &e);
-				getchar();
+				fflush(stdin);
 				break;
 			// Cadastro de produtos
 			case 'P':
