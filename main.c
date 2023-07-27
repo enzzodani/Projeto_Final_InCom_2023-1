@@ -14,11 +14,16 @@ Josue
 
 int main()
 {
-	char e = 'I';
+	char procedimento = 'I';
+
 	while(1){
+
+		// Limpa o output do terminal
 		fflush(stdout);
 		system("clear");
-		switch(e){
+
+		// Lógica de seleção de procedimentos
+		switch(procedimento){
 			// Tela incial
 			case 'I':
 				// Lógica da tela inicial
@@ -28,29 +33,30 @@ int main()
 				printf("F - Cadastro de formas de pagamento\n");
 				printf("V - Processo de vendas\n");
 				printf("S - Sair\n");
-				scanf("%c", &e);
+				scanf("%c", &procedimento);
+				// Limpa o buffer de input
 				fflush(stdin);
 				break;
 			// Cadastro de produtos
 			case 'P':
 				// Lógica do cadastro de produtos
-				e = 'I';
+				procedimento = 'I';
 				break;
 			// Cadastro de formas de pagamento
 			case 'F':
 				// Lógica do cadastro de formas de pagamento
-				e = 'I';
+				procedimento = 'I';
 				break;
 			// Procedimento de vendas
 			case 'V':
 				// Lógica do procedimento de vendas
-				e = 'I';
+				procedimento = 'I';
 				break;
 			// Sai do programa
 			case 'S':
 				return 0;
 			default:
-				e = 'I';
+				procedimento = 'I';
 		}
 	}
 }
