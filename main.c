@@ -11,6 +11,11 @@ Josue
 #include <stdio.h>
 #include <stdlib.h>
 
+struct produto {
+	char nomeDoProduto[30];
+	int codDoProduto;
+	float PrecoDoProduto;
+};
 
 int main()
 {
