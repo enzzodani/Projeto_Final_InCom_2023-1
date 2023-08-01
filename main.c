@@ -11,6 +11,13 @@ Josue
 #include <stdio.h>
 #include <stdlib.h>
 
+struct produto {
+	char nomeDoProduto[30];
+	int codDoProduto;
+	float precoDoProduto;
+};
+
+void CadastroDeProdutos ();
 
 int main()
 {
@@ -40,6 +47,7 @@ int main()
 			// Cadastro de produtos
 			case 'P':
 				// Lógica do cadastro de produtos
+				CadastroDeProdutos();
 				procedimento = 'I';
 				break;
 			// Cadastro de formas de pagamento
@@ -58,5 +66,33 @@ int main()
 			default:
 				procedimento = 'I';
 		}
+	}
+}
+
+void CadastroDeProdutos (){
+	char pescolha = 'N';
+	struct produto p[256];
+	int contador = 0;
+
+	printf("========== CADASTRO DE PRODUTOS ==========\n\n");
+	printf("Deseja cadastrar um produto (S = Sim/N = Nao)? ");
+		scanf("%c", &pescolha);
+	switch (pescolha){
+		case 'S':
+		//Procedimento de cadastro
+		printf("Digite o nome do produto: ");
+			gets(p[contador].nomeDoProduto);
+		printf("Digite o codigo do produto: ");
+			scanf("%d", &p[contador].codDoProduto);
+		printf("Digite o preco do produto: ");
+			scanf("%f", &p[contador].precoDoProduto);
+		contador++;
+		break;
+
+		case 'N': 
+		break;
+
+		default:
+
 	}
 }
