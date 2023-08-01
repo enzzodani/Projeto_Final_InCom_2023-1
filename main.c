@@ -17,6 +17,7 @@ struct produto {
 	float precoDoProduto;
 };
 
+void clearInputBuffer(void);
 void CadastroDeProdutos ();
 
 int main()
@@ -42,7 +43,7 @@ int main()
 				printf("S - Sair\n");
 				scanf("%c", &procedimento);
 				// Limpa o buffer de input
-				fflush(stdin);
+				clearInputBuffer();
 				break;
 			// Cadastro de produtos
 			case 'P':
@@ -67,6 +68,11 @@ int main()
 				procedimento = 'I';
 		}
 	}
+}
+
+void clearInputBuffer(void){
+	char lixo;
+	while((lixo = getchar()) != '\n' && lixo != EOF){continue;}
 }
 
 void CadastroDeProdutos (){
