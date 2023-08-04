@@ -54,6 +54,37 @@ int main()
 			// Cadastro de formas de pagamento
 			case 'F':
 				// Lógica do cadastro de formas de pagamento
+				struct pagamento{
+					char nome[30];
+					char codigo[30];
+					char descricao[200];
+				};
+
+				struct pagamento c[20];
+				int i, j; 
+				char proced = 'N';
+
+				for(i=0; i<20; i){
+					printf("Insira a forma de pagamento.\n");
+					scanf("%[^\n]", c[i].nome);
+
+					printf("\nInsira um código.\n");
+					scanf("%s", c[i].codigo);
+
+					printf("\nInsira uma descrição.\n");
+					scanf("%[^\n]", c[i].descricao);
+
+					printf("Deseja cadastrar outra forma de pagamento? (S/N)\n");
+					scanf("%c", &proced);
+					switch (proced){
+						case 'S':
+							i++;
+							break;
+						case 'N':
+							i = i + 21;
+							break;
+					}
+				}
 				procedimento = 'I';
 				break;
 			// Procedimento de vendas
