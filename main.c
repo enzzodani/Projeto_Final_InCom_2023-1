@@ -17,8 +17,14 @@ struct produto {
 	float precoDoProduto;
 };
 
+struct pagamento{
+	char nome[30];
+	char codigo[30];
+	char descricao[200];
+};
+
 void clearInputBuffer(void);
-void CadastroDeProdutos ();
+//void CadastroDeProdutos ();
 
 int main()
 {
@@ -48,18 +54,38 @@ int main()
 			// Cadastro de produtos
 			case 'P':
 				// Lógica do cadastro de produtos
-				CadastroDeProdutos();
+				char pescolha = 'N';
+				struct produto p[256];
+				int contador = 0;
+
+				printf("========== CADASTRO DE PRODUTOS ==========\n\n");
+				printf("Deseja cadastrar um produto (S = Sim/N = Nao)? ");
+					scanf("%c", &pescolha);
+				while (1) {
+					switch (pescolha){
+						case 'S':
+						//Procedimento de cadastro
+						printf("Digite o nome do produto: ");
+							gets(p[contador].nomeDoProduto);
+						printf("Digite o codigo do produto: ");
+							scanf("%d", &p[contador].codDoProduto);
+						printf("Digite o preco do produto: ");
+							scanf("%f", &p[contador].precoDoProduto);
+						contador++;
+						break;
+
+						case 'N': 
+						break;
+
+						default:
+						pescolha = 'S'
+					}
+				}
 				procedimento = 'I';
 				break;
 			// Cadastro de formas de pagamento
 			case 'F':
 				// Lógica do cadastro de formas de pagamento
-				struct pagamento{
-					char nome[30];
-					char codigo[30];
-					char descricao[200];
-				};
-
 				struct pagamento c[20];
 				int i, j; 
 				char proced = 'N';
@@ -106,7 +132,9 @@ void clearInputBuffer(void){
 	while((lixo = getchar()) != '\n' && lixo != EOF){continue;}
 }
 
-void CadastroDeProdutos (){
+//Futuramente aplicar a função para melhor execução do código
+
+/*int CadastroDeProdutos (int contador){
 	char pescolha = 'N';
 	struct produto p[256];
 	int contador = 0;
@@ -114,22 +142,25 @@ void CadastroDeProdutos (){
 	printf("========== CADASTRO DE PRODUTOS ==========\n\n");
 	printf("Deseja cadastrar um produto (S = Sim/N = Nao)? ");
 		scanf("%c", &pescolha);
-	switch (pescolha){
-		case 'S':
-		//Procedimento de cadastro
-		printf("Digite o nome do produto: ");
-			gets(p[contador].nomeDoProduto);
-		printf("Digite o codigo do produto: ");
-			scanf("%d", &p[contador].codDoProduto);
-		printf("Digite o preco do produto: ");
-			scanf("%f", &p[contador].precoDoProduto);
-		contador++;
-		break;
+	while (1) {
+		switch (pescolha){
+			case 'S':
+			//Procedimento de cadastro
+			printf("Digite o nome do produto: ");
+				gets(p[contador].nomeDoProduto);
+			printf("Digite o codigo do produto: ");
+				scanf("%d", &p[contador].codDoProduto);
+			printf("Digite o preco do produto: ");
+				scanf("%f", &p[contador].precoDoProduto);
+			contador++;
+			break;
 
-		case 'N': 
-		break;
+			case 'N': 
+			return contador;
+			break;
 
-		default:
-
+			default:
+			pescolha = 'S'
+		}
 	}
-}
+}*/
