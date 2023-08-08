@@ -26,9 +26,19 @@ struct pagamento{
 void clearInputBuffer(void);
 //void CadastroDeProdutos ();
 
+int contador = 0;
+
 int main()
 {
-	char procedimento = 'I';
+    //Declaração de variáveis
+        //variáveis do menu
+	        char procedimento = 'I';
+	    //variáveis do produto
+	        struct produto p[256];
+	        
+	   //variáveis do pagamento
+	        struct pagamento c[20];
+		    int i, j; 
 
 	while(1){
 
@@ -55,22 +65,24 @@ int main()
 			case 'P':
 				// Lógica do cadastro de produtos
 				char pescolha = 'N';
-				struct produto p[256];
-				int contador = 0;
 
 				printf("========== CADASTRO DE PRODUTOS ==========\n\n");
 				printf("Deseja cadastrar um produto (S = Sim/N = Nao)? ");
 					scanf("%c", &pescolha);
+					clearInputBuffer();
 				while (1) {
 					switch (pescolha){
 						case 'S':
 						//Procedimento de cadastro
 						printf("Digite o nome do produto: ");
-							gets(p[contador].nomeDoProduto);
+							scanf("%[^\n]", p[contador].nomeDoProduto);
+							clearInputBuffer();
 						printf("Digite o codigo do produto: ");
 							scanf("%d", &p[contador].codDoProduto);
+							clearInputBuffer();
 						printf("Digite o preco do produto: ");
 							scanf("%f", &p[contador].precoDoProduto);
+							clearInputBuffer();
 						contador++;
 						break;
 
@@ -78,7 +90,7 @@ int main()
 						break;
 
 						default:
-						pescolha = 'S'
+						pescolha = 'S';
 					}
 				}
 				procedimento = 'I';
@@ -86,22 +98,24 @@ int main()
 			// Cadastro de formas de pagamento
 			case 'F':
 				// Lógica do cadastro de formas de pagamento
-				struct pagamento c[20];
-				int i, j; 
 				char proced = 'N';
 
 				for(i=0; i<20; i){
 					printf("Insira a forma de pagamento.\n");
 					scanf("%[^\n]", c[i].nome);
+					clearInputBuffer();
 
 					printf("\nInsira um código.\n");
 					scanf("%s", c[i].codigo);
+					clearInputBuffer();
 
 					printf("\nInsira uma descrição.\n");
 					scanf("%[^\n]", c[i].descricao);
+					clearInputBuffer();
 
 					printf("Deseja cadastrar outra forma de pagamento? (S/N)\n");
 					scanf("%c", &proced);
+					clearInputBuffer();
 					switch (proced){
 						case 'S':
 							i++;
@@ -134,33 +148,35 @@ void clearInputBuffer(void){
 
 //Futuramente aplicar a função para melhor execução do código
 
-/*int CadastroDeProdutos (int contador){
-	char pescolha = 'N';
-	struct produto p[256];
-	int contador = 0;
+/*int CadastroDeProdutos (void){
 
-	printf("========== CADASTRO DE PRODUTOS ==========\n\n");
-	printf("Deseja cadastrar um produto (S = Sim/N = Nao)? ");
-		scanf("%c", &pescolha);
-	while (1) {
-		switch (pescolha){
-			case 'S':
-			//Procedimento de cadastro
-			printf("Digite o nome do produto: ");
-				gets(p[contador].nomeDoProduto);
-			printf("Digite o codigo do produto: ");
-				scanf("%d", &p[contador].codDoProduto);
-			printf("Digite o preco do produto: ");
-				scanf("%f", &p[contador].precoDoProduto);
-			contador++;
-			break;
+	char escolha = 'N';
 
-			case 'N': 
-			return contador;
-			break;
+	    printf("========== CADASTRO DE PRODUTOS ==========\n\n");
+		printf("Deseja cadastrar um produto (S = Sim/N = Nao)? ");
+			scanf("%c", &pescolha);
+			clearInputBuffer();
+			while (1) {
+				switch (pescolha){
+					case 'S':
+						//Procedimento de cadastro
+						printf("Digite o nome do produto: ");
+							scanf("%[^\n]", p[contador].nomeDoProduto);
+							clearInputBuffer();
+						printf("Digite o codigo do produto: ");
+							scanf("%d", &p[contador].codDoProduto);
+							clearInputBuffer();
+						printf("Digite o preco do produto: ");
+							scanf("%f", &p[contador].precoDoProduto);
+							clearInputBuffer();
+						contador++;
+						break;
 
-			default:
-			pescolha = 'S'
-		}
-	}
+						case 'N': 
+						break;
+
+						default:
+						pescolha = 'S';
+					}
+				}
 }*/
