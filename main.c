@@ -102,10 +102,9 @@ void limparSaida(void){
 }
 
 void pausar(void){
-    char* lixo;
     printf("\nAperte enter para continuar... ");
-    fgets(lixo, 1, stdin);
-    limparBufferDeEntrada;
+    getchar();
+    limparBufferDeEntrada();
 }
 
 int buscarInstancia(void* ponteiroDeListaDeInstancias, size_t tamanhoDaInstancia, int totalDeInstanciasCadastradas, int codigoDaInstancia){
