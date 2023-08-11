@@ -78,7 +78,7 @@ int main()
 				cadastroDeProdutos();
 				break;
 			case CADASTRO_DE_FORMAS_DE_PAGAMENTO:
-				
+				cadastroDeFormasDePagamento();
 				break;
 			case VENDAS:
 				
