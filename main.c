@@ -134,7 +134,7 @@ void menuInicial(void){
 
 void cadastroDeProdutos(void){
     
-	char procedimento = CADASTRO_DE_PRODUTOS;
+	procedimento = CADASTRO_DE_PRODUTOS;
 	int quantidadeDeCadastros;
 	
 	while(1){
@@ -206,7 +206,7 @@ void cadastroDeProdutos(void){
 
 void cadastroDeFormasDePagamento(void){
     
-	char procedimento = CADASTRO_DE_FORMAS_DE_PAGAMENTO;
+	procedimento = CADASTRO_DE_FORMAS_DE_PAGAMENTO;
 	int quantidadeDeCadastros;
 	
 	while(1){
