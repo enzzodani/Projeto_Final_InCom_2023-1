@@ -13,6 +13,7 @@ Josue
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // Constantes
 #define TAMANHO_NOME 30
@@ -52,6 +53,7 @@ int buscarInstancia(void* ponteiroDeListaDeInstancias, size_t tamanhoDaInstancia
 void menuInicial(void);
 void cadastroDeProdutos(void); // TODO: É possível fazer apenas uma função de cadastro generalista (um pouco complexo? vale a pena?)
 void cadastroDeFormasDePagamento(void); // Muito código repetido nessas duas funções...
+void processoDeVendas(void);
 
 // Instâncias
 struct Produto listaDeProdutos[TOTAL_DE_PRODUTOS];
@@ -81,7 +83,7 @@ int main()
 				cadastroDeFormasDePagamento();
 				break;
 			case VENDAS:
-
+				processoDeVendas();
 				break;
 			case SAIR:
 				return 0;
@@ -277,4 +279,92 @@ void cadastroDeFormasDePagamento(void){
 				procedimento = CADASTRO_DE_FORMAS_DE_PAGAMENTO;
 		}
 	}
+}
+
+// Função para processar a venda
+void processoDeVendas(void) {
+    int codigoProduto, quantidadeProduto, codigoFormaPagamento;
+    float valorFormaPagamento, valorTotalVenda = 0;
+    bool finalizarVenda = false;
+
+    printf("PROCESSO DE VENDAS\n\n");
+
+    while (!finalizarVenda) {
+        printf("Digite o código do produto: ");
+        scanf("%d", &codigoProduto);
+        limparBufferDeEntrada();
+
+        // Verificar se o código do produto existe
+        int indiceProduto = buscarInstancia(listaDeProdutos, sizeof(listaDeProdutos[0]), totalDeProdutosCadastrados, codigoProduto);
+        if (indiceProduto == -1) {
+            printf("Produto não encontrado. Por favor, insira um código válido.\n");
+            continue;
+        }
+
+        printf("Digite a quantidade do produto: ");
+        scanf("%d", &quantidadeProduto);
+        limparBufferDeEntrada();
+
+        if (quantidadeProduto <= 0) {
+            printf("Quantidade do produto deve ser maior que zero.\n");
+            continue;
+        }
+
+        valorTotalVenda += listaDeProdutos[indiceProduto].preco * quantidadeProduto;
+
+        printf("Deseja adicionar mais produtos? (S/N): ");
+        char resposta;
+        scanf("%c", &resposta);
+        limparBufferDeEntrada();
+        if (resposta == 'N' || resposta == 'n') {
+            finalizarVenda = true;
+        }
+    }
+
+    // Coletar informações das formas de pagamento
+    while (true) {
+        printf("\nValor total da venda: %.2f\n", valorTotalVenda);
+
+        printf("Digite o código da forma de pagamento (ou 0 para finalizar): ");
+        scanf("%d", &codigoFormaPagamento);
+        limparBufferDeEntrada();
+
+        if (codigoFormaPagamento == 0) {
+            break;
+        }
+
+        // Verificar se o código da forma de pagamento existe
+        int indiceFormaPagamento = buscarInstancia(listaDeFormasDePagamento, sizeof(listaDeFormasDePagamento[0]), totalDeFormasDePagamentoCadastradas, codigoFormaPagamento);
+        if (indiceFormaPagamento == -1) {
+            printf("Forma de pagamento não encontrada. Por favor, insira um código válido.\n");
+            continue;
+        }
+
+        printf("Digite o valor da forma de pagamento: ");
+        scanf("%f", &valorFormaPagamento);
+        limparBufferDeEntrada();
+
+        valorTotalVenda -= valorFormaPagamento;
+
+        printf("Deseja adicionar mais formas de pagamento? (S/N): ");
+        char resposta;
+        scanf("%c", &resposta);
+        limparBufferDeEntrada();
+        if (resposta == 'N' || resposta == 'n') {
+            break;
+        }
+    }
+
+    // Mostrar o cupom da venda
+    limparSaida();
+    printf("CUPOM DA VENDA\n");
+    printf("Valor total da venda: %.2f\n", valorTotalVenda);
+    printf("Produtos:\n");
+
+    // Listar os produtos vendidos
+    // Isso pode ser implementado usando o mesmo conceito de buscarInstancia
+    // para encontrar as instâncias dos produtos vendidos na listaDeProdutos.
+
+    printf("\nVenda finalizada!\n");
+    pausar();
 }
