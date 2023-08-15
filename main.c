@@ -45,6 +45,7 @@ struct FormaDePagamento{
 void limparBufferDeEntrada(void);
 void limparSaida(void);
 void pausar(void);
+void listarProdutosVendidos(int produtosVendidos[], int quantidadeProdutos);
 int buscarInstancia(void* ponteiroDeListaDeInstancias, size_t tamanhoDaInstancia ,int totalDeInstanciasCadastradas, int codigoDaInstancia);
 // TODO: void listarInstancias(void); Lista produtos ou formas de pagamento cadastrados
 
@@ -281,10 +282,28 @@ void cadastroDeFormasDePagamento(void){
 	}
 }
 
+void listarProdutosVendidos(int produtosVendidos[], int quantidadeProdutos) {
+    printf("Produtos vendidos:\n");
+
+    for (int i = 0; i < quantidadeProdutos; i++) {
+        int codigoProduto = produtosVendidos[i];
+        int indiceProduto = buscarInstancia(listaDeProdutos, sizeof(listaDeProdutos[0]), totalDeProdutosCadastrados, codigoProduto);
+
+        if (indiceProduto != -1) {
+            printf("Código: %d\n", listaDeProdutos[indiceProduto].codigo);
+            printf("Nome: %s\n", listaDeProdutos[indiceProduto].nome);
+            printf("Preço: %.2f\n", listaDeProdutos[indiceProduto].preco);
+            printf("\n");
+        }
+    }
+}
+
 // Função para processar a venda
 void processoDeVendas(void) {
     int codigoProduto, quantidadeProduto, codigoFormaPagamento;
     float valorFormaPagamento, valorTotalVenda = 0;
+	int produtosVendidos[TOTAL_DE_PRODUTOS];
+    int quantidadeProdutosVendidos = 0;
     bool finalizarVenda = false;
 
     printf("PROCESSO DE VENDAS\n\n");
@@ -360,11 +379,7 @@ void processoDeVendas(void) {
     printf("CUPOM DA VENDA\n");
     printf("Valor total da venda: %.2f\n", valorTotalVenda);
     printf("Produtos:\n");
-
-    // Listar os produtos vendidos
-    // Isso pode ser implementado usando o mesmo conceito de buscarInstancia
-    // para encontrar as instâncias dos produtos vendidos na listaDeProdutos.
-
+	listarProdutosVendidos(produtosVendidos, quantidadeProdutosVendidos);
     printf("\nVenda finalizada!\n");
     pausar();
 }
