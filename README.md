@@ -38,11 +38,12 @@ O intuito desse documento é apenas para explicar alguns pontos que podem gerar 
 ## *******Como Executar*******
 
 ---
+```git clone https://github.com/enzzodani/Projeto_Final_InCom_2023-1```
 
-Depois de compilado, execute o programa para abrir o Menu Inicial.
-O Programa tem 
+```cd Projeto_Final_InCom_2023-1```
 
-```
-gcc -c main 
-```
+```gcc main.c -o main```
+
+```./main```
+
 ---
