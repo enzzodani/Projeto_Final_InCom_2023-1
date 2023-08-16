@@ -47,7 +47,6 @@ void limparSaida(void);
 void pausar(void);
 void listarProdutosVendidos(int produtosVendidos[], int quantidadeProdutos);
 int buscarInstancia(void* ponteiroDeListaDeInstancias, size_t tamanhoDaInstancia ,int totalDeInstanciasCadastradas, int codigoDaInstancia);
-// TODO: void listarInstancias(void); Lista produtos ou formas de pagamento cadastrados
 
 
 // Funções de procedimento
@@ -147,7 +146,6 @@ void cadastroDeProdutos(void){
 				printf("CADASTRO DE PRODUTOS\n\n");
 				printf("Informe a operação desejada: \n");
 				printf("C - Cadastrar novos produtos\n");
-				printf("L - Listar produtos cadastrados\n");
 				printf("M - Retornar ao menu inicial\n");
 				scanf("%c", &procedimento);
 				limparBufferDeEntrada();
@@ -198,9 +196,6 @@ void cadastroDeProdutos(void){
 				}
 				procedimento = CADASTRO_DE_PRODUTOS;
 				break;
-			case LISTAR:
-				// TODO
-				break;
 			case MENU_INICIAL:
 				return;
 				break;
@@ -222,7 +217,6 @@ void cadastroDeFormasDePagamento(void){
 				printf("CADASTRO DE FORMAS DE PAGAMENTO\n\n");
 				printf("Informe a operação desejada: \n");
 				printf("C - Cadastrar novas formas de pagamento\n");
-				printf("L - Listar formas de pagamento cadastradas\n");
 				printf("M - Retornar ao menu inicial\n");
 				scanf("%c", &procedimento);
 				limparBufferDeEntrada();
@@ -269,9 +263,6 @@ void cadastroDeFormasDePagamento(void){
 					totalDeFormasDePagamentoCadastradas++;
 				}
 				procedimento = CADASTRO_DE_FORMAS_DE_PAGAMENTO;
-				break;
-			case LISTAR:
-				// TODO
 				break;
 			case MENU_INICIAL:
 				return;
@@ -380,10 +371,9 @@ void processoDeVendas(void) {
 
     // Mostrar o cupom da venda
     limparSaida();limparSaida();
-    printf("CUPOM DA VENDA\n");
+    printf("======CUPOM DA VENDA====\n");
     printf("Valor total da venda: %.2f\n", valorTotalVenda);
-    printf("Produtos:\n");
 	listarProdutosVendidos(produtosVendidos, quantidadeProdutosVendidos);
-    printf("\nVenda finalizada!\n");
+    printf("\n======Venda finalizada!=====\n");
     pausar();
 }
