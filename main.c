@@ -301,13 +301,13 @@ void listarProdutosVendidos(int produtosVendidos[], int quantidadeProdutos) {
 // Função para processar a venda
 void processoDeVendas(void) {
     int codigoProduto, quantidadeProduto, codigoFormaPagamento;
-    float valorFormaPagamento, valorTotalVenda = 0;
+    float valorFormaPagamento = 0, valorTotalVenda = 0, valorRestante = 0;
 	int produtosVendidos[TOTAL_DE_PRODUTOS];
     int quantidadeProdutosVendidos = 0;
     bool finalizarVenda = false;
 
     printf("PROCESSO DE VENDAS\n\n");
-
+    int i = 0;
     while (!finalizarVenda) {
         printf("Digite o código do produto: ");
         scanf("%d", &codigoProduto);
@@ -319,6 +319,9 @@ void processoDeVendas(void) {
             printf("Produto não encontrado. Por favor, insira um código válido.\n");
             continue;
         }
+        produtosVendidos[i] = codigoProduto;
+        i++;
+        quantidadeProdutosVendidos++;
 
         printf("Digite a quantidade do produto: ");
         scanf("%d", &quantidadeProduto);
@@ -339,18 +342,14 @@ void processoDeVendas(void) {
             finalizarVenda = true;
         }
     }
-
+    valorRestante = valorTotalVenda;
     // Coletar informações das formas de pagamento
     while (true) {
         printf("\nValor total da venda: %.2f\n", valorTotalVenda);
 
-        printf("Digite o código da forma de pagamento (ou 0 para finalizar): ");
+        printf("Digite o código da forma de pagamento: ");
         scanf("%d", &codigoFormaPagamento);
         limparBufferDeEntrada();
-
-        if (codigoFormaPagamento == 0) {
-            break;
-        }
 
         // Verificar se o código da forma de pagamento existe
         int indiceFormaPagamento = buscarInstancia(listaDeFormasDePagamento, sizeof(listaDeFormasDePagamento[0]), totalDeFormasDePagamentoCadastradas, codigoFormaPagamento);
@@ -363,19 +362,24 @@ void processoDeVendas(void) {
         scanf("%f", &valorFormaPagamento);
         limparBufferDeEntrada();
 
-        valorTotalVenda -= valorFormaPagamento;
+        valorRestante -= valorFormaPagamento;
 
         printf("Deseja adicionar mais formas de pagamento? (S/N): ");
         char resposta;
         scanf("%c", &resposta);
         limparBufferDeEntrada();
         if (resposta == 'N' || resposta == 'n') {
-            break;
+            if(valorRestante == 0) {
+                break;
+            } else{
+                printf("Ainda faltam %f reais a serem pagos", valorRestante);
+            }
         }
+        
     }
 
     // Mostrar o cupom da venda
-    limparSaida();
+    limparSaida();limparSaida();
     printf("CUPOM DA VENDA\n");
     printf("Valor total da venda: %.2f\n", valorTotalVenda);
     printf("Produtos:\n");
