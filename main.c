@@ -3,7 +3,7 @@ Projeto Final InCom 2023-1
 Alunos:
 Enzo Daniel Marinho
 Itamar Rocha
-Antony
+Anthony Felipe
 Josue
 */
 
@@ -28,13 +28,14 @@ Josue
 #define VENDAS 'V'
 #define SAIR 'S'
 
-// Estruturas - CUIDADO AO MODIFICAR AS ESTRUTURAS (TYPE CASTING/SAFETY)
+// Estrutura de produtos.
 struct Produto {
 	int codigo;
 	char nome[TAMANHO_NOME];
 	float preco;
 };
 
+// Estrutura de formas de pagamentos.
 struct FormaDePagamento{
 	int codigo;
 	char nome[TAMANHO_NOME];
@@ -133,7 +134,7 @@ void menuInicial(void){
 	scanf("%c", &procedimento);
 	limparBufferDeEntrada();
 }
-
+//Inicia o procedimento de cadastro de produtos.
 void cadastroDeProdutos(void){
 
 	procedimento = CADASTRO_DE_PRODUTOS;
@@ -142,11 +143,11 @@ void cadastroDeProdutos(void){
 	while(1){
 		limparSaida();
 		switch (procedimento){
-			case CADASTRO_DE_PRODUTOS:
+			case CADASTRO_DE_PRODUTOS: // Verifica qual será o procedimento seguinte.
 				printf("CADASTRO DE PRODUTOS\n\n");
 				printf("Informe a operação desejada: \n");
-				printf("C - Cadastrar novos produtos\n");
-				printf("M - Retornar ao menu inicial\n");
+				printf("C - Cadastrar novos produtos\n"); // Inicia o cadastro.
+				printf("M - Retornar ao menu inicial\n"); // Volta ao menu
 				scanf("%c", &procedimento);
 				limparBufferDeEntrada();
 				break;
@@ -155,12 +156,13 @@ void cadastroDeProdutos(void){
 				printf("Limite de produtos cadastrados alcançado.");
 				pausar();
 				}
+				// Início do cadastro.
 				while(1){
 					int temp;
-					printf("Digite quantos produtos deseja cadastrar: ");
+					printf("Digite quantos produtos deseja cadastrar: "); // Verifica a quantidade de produtos.
 					scanf("%d", &temp);
 					limparBufferDeEntrada();    			
-					if (temp + totalDeProdutosCadastrados > TOTAL_DE_PRODUTOS){
+					if (temp + totalDeProdutosCadastrados > TOTAL_DE_PRODUTOS){ // Verifica se a quantidade não ultrapassa o limite.
 						printf("Há espaço para armazenar %d novos produtos. Por favor insira um número dentro do limite de produtos.\n", TOTAL_DE_PRODUTOS - totalDeProdutosCadastrados);
 						pausar();
 					} else {
@@ -168,6 +170,7 @@ void cadastroDeProdutos(void){
 						break;
 					}
 				}
+				// Inserção dos dados dos produtos.
 				for (int i = 0; i < quantidadeDeCadastros; i++){
 					int codigo;
 					limparSaida();
@@ -176,6 +179,7 @@ void cadastroDeProdutos(void){
 						printf("Digite o codigo do produto %d: ", i+1);
 						scanf("%d", &codigo);
 						limparBufferDeEntrada();
+						// Impede que dois produtos tenham o mesmo código.
 						if (buscarInstancia(listaDeProdutos, sizeof(listaDeProdutos[0]), totalDeProdutosCadastrados, codigo) == -1){
 							listaDeProdutos[totalDeProdutosCadastrados].codigo = codigo;
 							break;
@@ -196,7 +200,7 @@ void cadastroDeProdutos(void){
 				}
 				procedimento = CADASTRO_DE_PRODUTOS;
 				break;
-			case MENU_INICIAL:
+			case MENU_INICIAL: // Retorna ao menu.
 				return;
 				break;
 			default:
@@ -204,7 +208,7 @@ void cadastroDeProdutos(void){
 		}
 	}
 }
-
+// Código do cadastro das formas de pagamento
 void cadastroDeFormasDePagamento(void){
 
 	procedimento = CADASTRO_DE_FORMAS_DE_PAGAMENTO;
@@ -213,25 +217,25 @@ void cadastroDeFormasDePagamento(void){
 	while(1){
 		limparSaida();
 		switch (procedimento){
-			case CADASTRO_DE_FORMAS_DE_PAGAMENTO:
+			case CADASTRO_DE_FORMAS_DE_PAGAMENTO: // Verifica qual será o procedimento seguinte.
 				printf("CADASTRO DE FORMAS DE PAGAMENTO\n\n");
 				printf("Informe a operação desejada: \n");
-				printf("C - Cadastrar novas formas de pagamento\n");
-				printf("M - Retornar ao menu inicial\n");
+				printf("C - Cadastrar novas formas de pagamento\n"); // Inicia o cadastro das formas de pagamento.
+				printf("M - Retornar ao menu inicial\n"); // Volta pro Menu.
 				scanf("%c", &procedimento);
 				limparBufferDeEntrada();
 				break;
-			case CADASTRAR:
+			case CADASTRAR: 
 				if (totalDeFormasDePagamentoCadastradas == TOTAL_DE_FORMAS_DE_PAGAMENTO){
 					printf("Limite de formas de pagamento cadastrados alcançado.");
 					pausar();
 				}
 				while(1){
 					int temp;
-					printf("Digite quantas formas de pagamento deseja cadastrar: ");
+					printf("Digite quantas formas de pagamento deseja cadastrar: "); // Verifica quantas formas de pagamento serão cadastradas.
 					scanf("%d", &temp);
 					limparBufferDeEntrada();    			
-					if (temp + totalDeFormasDePagamentoCadastradas > TOTAL_DE_FORMAS_DE_PAGAMENTO){
+					if (temp + totalDeFormasDePagamentoCadastradas > TOTAL_DE_FORMAS_DE_PAGAMENTO){ // Verifica se a quantidade desejada não ultrapassa o limite de cadastros.
 						printf("Há espaço para armazenar %d novas formas de pagamento. Por favor insira um número dentro do limite de formas de pagamento.\n", TOTAL_DE_FORMAS_DE_PAGAMENTO - totalDeFormasDePagamentoCadastradas);
 						pausar();
 					} else {
@@ -239,14 +243,16 @@ void cadastroDeFormasDePagamento(void){
 						break;
 					}
 				}
+				// Inserção dos dados das formas de pagamento.
 				for (int i = 0; i < quantidadeDeCadastros; i++){
 					int codigo;
 					limparSaida();
 					printf("Cadastrando %d novas formas de pagamento, %d já cadastradas, restam %d.\n\n", quantidadeDeCadastros, i, quantidadeDeCadastros-i);
 					while(1){
-						printf("Digite o codigo da forma de pagamento %d: ", i+1);
+						printf("Digite o codigo da forma de pagamento %d: ", i+1); // Recebe código da forma de pagamento.
 						scanf("%d", &codigo);
 						limparBufferDeEntrada();
+						//Verifica se não há dois códigos repetidos.
 						if (buscarInstancia(listaDeFormasDePagamento, sizeof(listaDeFormasDePagamento[0]), totalDeFormasDePagamentoCadastradas, codigo) == -1){
 							listaDeFormasDePagamento[totalDeFormasDePagamentoCadastradas].codigo = codigo;
 							break;
@@ -254,17 +260,17 @@ void cadastroDeFormasDePagamento(void){
 							printf("Já existe uma forma de pagamento cadastrada com esse código. Insira um novo código.\n");
 						}
 					}
-					printf("Digite o nome da forma de pagamento %d: ", i+1);
+					printf("Digite o nome da forma de pagamento %d: ", i+1); // Recebe nome.
 					scanf("%[^\n]", listaDeFormasDePagamento[totalDeFormasDePagamentoCadastradas].nome);
 					limparBufferDeEntrada();
-					printf("Digite a descrição da forma de pagamento %d: ", i+1);
+					printf("Digite a descrição da forma de pagamento %d: ", i+1); // Recebe descrição.
 					scanf("%[^\n]", listaDeFormasDePagamento[totalDeFormasDePagamentoCadastradas].descricao);
 					limparBufferDeEntrada();
 					totalDeFormasDePagamentoCadastradas++;
 				}
 				procedimento = CADASTRO_DE_FORMAS_DE_PAGAMENTO;
 				break;
-			case MENU_INICIAL:
+			case MENU_INICIAL: // Retorna para o menu inicial.
 				return;
 				break;
 			default:
@@ -273,6 +279,7 @@ void cadastroDeFormasDePagamento(void){
 	}
 }
 
+// Lista de dados que serão impressos na nota.
 void listarProdutosVendidos(int produtosVendidos[], int quantidadeProdutos) {
     printf("Produtos vendidos:\n");
 
@@ -289,7 +296,7 @@ void listarProdutosVendidos(int produtosVendidos[], int quantidadeProdutos) {
     }
 }
 
-// Função para processar a venda
+// Função para processar a venda.
 void processoDeVendas(void) {
     int codigoProduto, quantidadeProduto, codigoFormaPagamento;
     float valorFormaPagamento = 0, valorTotalVenda = 0, valorRestante = 0;
@@ -314,18 +321,18 @@ void processoDeVendas(void) {
         i++;
         quantidadeProdutosVendidos++;
 
-        printf("Digite a quantidade do produto: ");
+        printf("Digite a quantidade do produto: "); // Escaneia a quantidade de produtos.
         scanf("%d", &quantidadeProduto);
         limparBufferDeEntrada();
 
-        if (quantidadeProduto <= 0) {
+        if (quantidadeProduto <= 0) { // Verifica se a quantidade é válida.
             printf("Quantidade do produto deve ser maior que zero.\n");
             continue;
         }
 
         valorTotalVenda += listaDeProdutos[indiceProduto].preco * quantidadeProduto;
 
-        printf("Deseja adicionar mais produtos? (S/N): ");
+        printf("Deseja adicionar mais produtos? (S/N): "); // Verifica se mais produtos serão comprados.
         char resposta;
         scanf("%c", &resposta);
         limparBufferDeEntrada();
@@ -334,7 +341,7 @@ void processoDeVendas(void) {
         }
     }
     valorRestante = valorTotalVenda;
-    // Coletar informações das formas de pagamento
+    // Coletar informações das formas de pagamento.
     while (true) {
         printf("\nValor total da venda: %.2f\n", valorTotalVenda);
 
@@ -349,27 +356,29 @@ void processoDeVendas(void) {
             continue;
         }
 
+        // Escaneia quanto será pago.
         printf("Digite o valor da forma de pagamento: ");
         scanf("%f", &valorFormaPagamento);
         limparBufferDeEntrada();
 
         valorRestante -= valorFormaPagamento;
 
+        //Verifica se o valor do produto foi alcançado, caso contrário, te obriga a registrar o pagamento novamente.
         printf("Deseja adicionar mais formas de pagamento? (S/N): ");
         char resposta;
         scanf("%c", &resposta);
         limparBufferDeEntrada();
         if (resposta == 'N' || resposta == 'n') {
-            if(valorRestante == 0) {
+            if(valorRestante <= 0) {
                 break;
             } else{
-                printf("Ainda faltam %f reais a serem pagos", valorRestante);
+                printf("Ainda faltam %.2f reais a serem pagos", valorRestante);
             }
         }
         
     }
 
-    // Mostrar o cupom da venda
+    // Mostrar o cupom da venda.
     limparSaida();limparSaida();
     printf("======CUPOM DA VENDA====\n");
     printf("Valor total da venda: %.2f\n", valorTotalVenda);
